@@ -1,0 +1,9 @@
+---
+- name: CONFIGURING AUTOFS SERVER
+  hosts: system2
+  tasks:
+    - name: mounting
+      include_role: 
+        name: autofs-server
+
+
