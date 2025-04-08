@@ -7,19 +7,9 @@
 /misc	/etc/auto.misc
 
 
-## SEPERATE MISC FILE FOR EACH MOUNT POINT
-#{% for mount in mounts %}
-#{{ mount.mount_dir }} /etc/{{ mount.mount_point }}.misc  {% if mount.timeout is defined %}timeout={{ mount.timeout }}{% endif %}
-#
-#{% endfor %}
-
-
 ## SAME MISC FILE FOR EACH MOUNT POINT
 
-{% for mount in mounts | unique(attribute='mount_dir') %}
-{{ mount.mount_dir }} /etc/auto_mount.misc
-{% endfor %}
-
+{{ mount_dir }} /etc/home.misc timeout={{ timeout }}
 
 
 

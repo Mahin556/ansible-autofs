@@ -8,46 +8,21 @@
     - nfs-utils
   notify: restart autofs
 
-- name: STOP AUTOFS SERVICE IS ALREADY INSTALLED AND RUNNING
+- name: stop autofs if already running
   service:
     name: autofs
     state: stopped
   notify: restart autofs
     
-- name: CREATING A BASE MOUNT POINT
-  file:
-    path: "{{ item.mount_dir }}"
-    mode: "0777"
-    state: directory
-  loop: "{{ mounts }}"
+- name: including autofs.yml file
+  include_tasks: autofs.yml
 
-- name: CREATING A MOUNT POINT IN MOUNT DIRECTORY
-  file:
-    path: "{{ item.mount_dir }}/{{ item.mount_point }}"
-    state: directory
-    mode: "0644"
-  loop: "{{ mounts }}"
-
-- name: PREPARE MASTER MAP FILE
-  template:
-    src: auto.master.j2
-    dest: /etc/auto.master
-    mode: "0644"
-  notify: restart autofs
-
-- name: PREPARE MAP FILE FOR EACH MOUNT
-  template:
-    src: auto_mount.j2
-    dest: /etc/auto_mount.misc
-    mode: "0644"
-  notify: restart autofs
-
-- name: CONFIGURING A SELINUX
+- name: configuring a selinux
   selinux:
     policy: targeted
     state: permissive
 
-- name: STARTING THE SERVICE FIREWALLD
+- name: starting a firewall
   service: 
     name: firewalld
     state: restarted

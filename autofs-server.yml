@@ -1,6 +1,6 @@
 ---
 - name: CONFIGURING AUTOFS SERVER
-  hosts: system2
+  hosts: autofs-clients
   tasks:
     - name: mounting
       include_role: 
