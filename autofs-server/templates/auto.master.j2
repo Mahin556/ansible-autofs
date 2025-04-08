@@ -18,8 +18,8 @@
 
 {% for mount in mounts | unique(attribute='mount_dir') %}
 {{ mount.mount_dir }} /etc/auto_mount.misc
-
 {% endfor %}
+
 
 
 
