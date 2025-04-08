@@ -1,1 +1,4 @@
-*  -rw,sync  -fstype=nfs {{ nfs_server }}:/home/&
+{% for user_name in users %}
+{{ user_name }}  -rw,sync  -fstype=nfs {{ nfs_server }}:/home/{{ user_name }}
+{% endfor %}
+
